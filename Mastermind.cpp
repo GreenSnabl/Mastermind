@@ -6,35 +6,6 @@ using std::string;
 
 
 
-void clear_int_stream() {
-    if (cin.fail()) {
-        cin.clear();
-        for (char ch; cin >> ch;)
-                return;
-    }
-}
-
-int get_int() {
-    int input = 0;                      
-    while (true) {
-        if (cin >> input) return input;
-        clear_int_stream();
-        return -1;
-    }
-}
-
-int get_int(int low, int high) {
-    while (true) {
-        int n = get_int();
-        if (low <= n && n <= high) return n;
-        else cout << "\nKeine Gültige Eingabe!\n\n"; return -1;
-    }
-
-}
-
-
-
-
 vector<int> Mastermind::get_code()
 {
     
@@ -43,11 +14,11 @@ vector<int> Mastermind::get_code()
     {
         vector<int> codeVec;
         cin >> code;
-        if(code.size() == 4) 
+        if(code.size() == size) 
         {
-            for(int i = 0; i < 4; ++i)
+            for(int i = 0; i < size; ++i)
                 codeVec.push_back(code[i]-48);
-            if(isValidInput(codeVec, 4, 1, 6)) return codeVec;
+            if(isValidInput(codeVec, size, min, max)) return codeVec;
         }
         cout << "Bitte geben Sie einen gültigen Code ein!\n";
         
@@ -84,8 +55,10 @@ void Mastermind::play() {
         cout << "Runde " << counter + 1 
              << "\n\nWie lautet ihr Tipp?\n";
         guess = get_code();
-        cout << "\n\nIhr Tipp:\t\t" << guess[0] << guess[1] << guess[2] << guess[3] 
-             << "\nSchwarze Marker:\t" << black(solution, guess) 
+        cout << "\n\nIhr Tipp:\t\t";
+        for (int i = 0; i < size; ++i)
+            cout << guess[i];
+        cout << "\nSchwarze Marker:\t" << black(solution, guess) 
              << "\nWeiße Marker:\t\t" << white(solution, guess) << "\n\n";
         if (guess == solution)
         {
@@ -99,8 +72,8 @@ void Mastermind::play() {
 void Mastermind::help()
 {
     cout << "\t\t*** Mastermind  ---  Spielregeln  --- Spiel für 2 Personen   ***\n\n\n"
-         << "\t\tZu Spielbeginn legt Spieler 1 einen 4-stelligen Lösungscode fest.\n\n"
-         << "\t\tDer Lösungscode besteht aus den Ziffern \"1-6\".\n\n"
+         << "\t\tZu Spielbeginn legt Spieler 1 einen "<< size << "-stelligen Lösungscode fest.\n\n"
+         << "\t\tDer Lösungscode besteht aus den Ziffern \"" << min << "-" << max << "\".\n\n"
          << "\t\tJede Ziffer darf maximal einmalig verwendet werden.\n\n\n"
          << "\t\tSpieler 2 stehen nun 8 Raterunden  zur Verfügung.\n\n"
          << "\t\tNach jeder Runde erhält Spieler 2 Tipps in Form von schwarzen und weißen Markern.\n\n"
