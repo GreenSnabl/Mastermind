@@ -8,10 +8,10 @@ using std::vector;
 
 int main() {
     
-    Mastermind m(1,9,5);
+    Mastermind m(1,6,4);
     m.menu();
 
-    MastermindChar mc('a', 'm', 6);
+    MastermindChar mc('a', 'f', 4);
     mc.menu();
     
     
